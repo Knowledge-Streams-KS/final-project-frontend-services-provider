@@ -1,0 +1,32 @@
+service-provider-fe/
+├── public/
+├── src/
+│   ├── components/
+│   │   ├── Auth/
+│   │   │   ├── Login.jsx
+│   │   │   ├── Register.jsx
+│   │   ├── Bookings/
+│   │   │   ├── BookingList.jsx
+│   │   │   ├── BookingDetails.jsx
+│   │   ├── Services/
+│   │   │   ├── ServiceList.jsx
+│   │   │   ├── ServiceDetails.jsx
+│   │   ├── Profile/
+│   │   │   ├── Profile.jsx
+│   │   ├── Layout/
+│   │   │   ├── Header.jsx
+│   │   │   ├── Footer.jsx
+│   ├── context/
+│   │   ├── AuthContext.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   ├── utils/
+│   │   ├── api.js
+│   ├── App.jsx
+│   ├── main.jsx
+│   ├── index.css
+├── package.json
+├── tailwind.config.js
+├── postcss.config.js
