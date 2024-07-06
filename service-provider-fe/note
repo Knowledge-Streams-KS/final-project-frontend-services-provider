@@ -1,4 +1,4 @@
-service-provider-fe/
+mahir-company-clone/
 ├── public/
 ├── src/
 │   ├── components/
@@ -22,7 +22,14 @@ service-provider-fe/
 │   │   ├── Home.jsx
 │   │   ├── About.jsx
 │   │   ├── Contact.jsx
+│   ├── redux/
+│   │   ├── slices/
+│   │   │   ├── authSlice.js
+│   │   │   ├── bookingSlice.js
+│   │   │   ├── serviceSlice.js
+│   │   ├── store.js
 │   ├── utils/
+│   │   ├── apiConfig.js
 │   │   ├── api.js
 │   ├── App.jsx
 │   ├── main.jsx
