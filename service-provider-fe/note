@@ -1,4 +1,4 @@
-mahir-company-clone/
+Service Provider/
 ├── public/
 ├── src/
 │   ├── components/
@@ -20,8 +20,6 @@ mahir-company-clone/
 │   │   ├── AuthContext.jsx
 │   ├── pages/
 │   │   ├── Home.jsx
-│   │   ├── About.jsx
-│   │   ├── Contact.jsx
 │   ├── redux/
 │   │   ├── slices/
 │   │   │   ├── authSlice.js
@@ -31,9 +29,11 @@ mahir-company-clone/
 │   ├── utils/
 │   │   ├── apiConfig.js
 │   │   ├── api.js
-│   ├── App.jsx
-│   ├── main.jsx
+│   ├── App.js
+│   ├── main.js
 │   ├── index.css
+│   ├── routes.js
+├── index.html
 ├── package.json
 ├── tailwind.config.js
 ├── postcss.config.js

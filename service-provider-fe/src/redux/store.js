@@ -1,12 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./slices/authSlice";
-import bookingReducer from "./slices/bookingSlice";
-import serviceReducer from "./slice/serviceSlice";
+// src/redux/store.js
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './slices/authSlice.js';
+import bookingReducer from './slices/bookingSlice.js';
+import serviceReducer from './slices/serviceSlice.js';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    booking: bookingReducer,
+    bookings: bookingReducer,
     services: serviceReducer,
   },
 });

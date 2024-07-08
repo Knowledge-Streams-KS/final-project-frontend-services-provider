@@ -1,44 +1,45 @@
-import React, { useContext, useState } from "react"
-import { TextField, Button, Container, Typography } from '@mui/material'
-import AuthContext from '../../context/AuthContext'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-
-
-
-
+import React, { useState, useContext, useEffect } from 'react';
+import { TextField, Button, Container, Typography } from '@mui/material';
+import AuthContext from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
-    const [formData, setFormData] = useState({ email: '', password: '' })
-    const { login, loading, error } = useContext(AuthContext)
-    const navigate = useNavigate()
+    const [formData, setFormData] = useState({ email: '', password: '' });
+    const { login, loading, error } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        login(formData)
+    useEffect(() => {
         if (error) {
             toast.error('Invalid credentials')
-        } else {
+        } else if (!loading && !error && formData.email && formData.password) {
             toast.success('Login successful')
             navigate('/')
         }
-    }
+    }, [error, loading])
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        login(formData);
+    };
 
     return (
-        <Container maxWidth='xs'>
-            <Typography variant="h4" className="mt-8 mb-4 text-center">
+        <Container maxWidth="xs" className='mt-40'>
+            <Typography variant="h4" className="mt-6 mb-4 text-center ">
                 Login
             </Typography>
             <form onSubmit={handleSubmit} className="space-y-4">
-                <TextField label='Email'
-                    variant='outlined'
+                <TextField
+                    label="Email"
+                    variant="outlined"
                     fullWidth
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
-                <TextField label="Password"
+                <TextField
+                    label="Password"
                     type="password"
-                    variant="outline"
+                    variant="outlined"
                     fullWidth
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -48,7 +49,7 @@ const Login = () => {
                 </Button>
             </form>
         </Container>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

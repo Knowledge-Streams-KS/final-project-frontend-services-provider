@@ -1,68 +1,112 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../../utils/api.js";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import API from '../../utils/apiConfig';
 
-export const loginUser = createAsyncThunk(
-  "auth/loginUser",
-  async (formData, { rejectWithValue }) => {
-    try {
-      const response = await api.login(formData);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
+export const registerUser = createAsyncThunk('auth/registerUser', async (userData, thunkAPI) => {
+  try {
+    const response = await API.post('/users/register', userData);
+    localStorage.setItem('authToken', response.data.token);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
   }
-);
+});
 
-export const registerUser = createAsyncThunk(
-  "auth/registerUser",
-  async (formData, { rejectWithValue }) => {
-    try {
-      const response = await api.register(formData);
-      return response.data;
-    } catch (error) {
-      return rejectWithValue(error.response.data);
-    }
+export const loginUser = createAsyncThunk('auth/loginUser', async (userData, thunkAPI) => {
+  try {
+    const response = await API.post('/users/login', userData);
+    localStorage.setItem('authToken', response.data.token);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
   }
-);
+});
+
+export const fetchUserProfile = createAsyncThunk('auth/fetchUserProfile', async (_, thunkAPI) => {
+  try {
+    const response = await API.get('/users/profile');
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', async(userData, thunkAPI) => {
+  try{
+    const response = await API.put('/users/profile', userData)
+    return response.data
+  }catch(error){
+    return thunkAPI.rejectWithValue(error.response.data)
+  }
+})
 
 const authSlice = createSlice({
-  nam: "auth",
-  initialState: { user: null, loading: false, error: null },
+  name: 'auth',
+  initialState: {
+    user: null,
+    loading: false,
+    error: null,
+  },
   reducers: {
     logout: (state) => {
       state.user = null;
+      localStorage.removeItem('authToken');
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(loginUser.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(loginUser.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.user = payload;
-        localStorage.setItem("profile", JSON.stringify(payload));
-      })
-      .addCase(loginUser.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload;
-      })
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(registerUser.fulfilled, (state, { payload }) => {
+      .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = payload;
-        localStorage.setItem("profile", JSON.stringify(payload));
+        state.user = action.payload;
       })
-      .addCase(registerUser.rejected, (state, { payload }) => {
+      .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = payload;
-      });
-  },
+        state.error = action.payload;
+      })
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchUserProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(fetchUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+  }
 });
 
-export const { loading } = authSlice.actions;
+export const { logout, setUser } = authSlice.actions;
+
 export default authSlice.reducer;

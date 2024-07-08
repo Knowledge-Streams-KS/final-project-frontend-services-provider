@@ -1,32 +1,23 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as api from "../../utils/api.js";
+// src/redux/slices/bookingSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import * as api from '../../utils/api.js';
 
 export const fetchBookings = createAsyncThunk(
-  "bookings/fetchBookings",
-  async (_, { rejectedWithValue }) => {
+  'bookings/fetchBookings',
+  async (_, { rejectWithValue }) => {
     try {
       const response = await api.fetchBookings();
       return response.data;
     } catch (error) {
-      return rejectedWithValue(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );
 
-export const createBooking = createAsyncThunk(
-  "bookings/createBooking",
-  async (bookingData, { rejectedWithValue }) => {
-    try {
-      const response = await api.createBooking(bookingData);
-      return response.data;
-    } catch (error) {
-      return rejectedWithValue(error.response.data);
-    }
-  }
-);
 const bookingSlice = createSlice({
-  nam: "bookings",
-  initialState: { booking: [], loading: false, error: null },
+  name: 'bookings',
+  initialState: { bookings: [], loading: false, error: null },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchBookings.pending, (state) => {
@@ -35,13 +26,9 @@ const bookingSlice = createSlice({
       })
       .addCase(fetchBookings.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.error = payload;
+        state.bookings = payload;
       })
-      .addCase(createBooking.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.bookings.push(payload);
-      })
-      .addCase(createBooking.rejected, (state, { payload }) => {
+      .addCase(fetchBookings.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
       });
