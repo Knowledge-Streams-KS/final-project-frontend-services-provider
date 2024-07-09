@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchServices } from "../../redux/slices/serviceSlice";
+import { fetchServices } from "../../redux/slices/serviceSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
