@@ -5,8 +5,8 @@ import bookingReducer from './slices/bookingSlice.js';
 import serviceReducer from './slices/serviceSlice.js';
 import personalServiceReducer from './slices/personalServiceSlice';
 import homeServiceReducer from './slices/homeServiceSlice';
-import cleaningServiceReducer from './slices/cleaningServicesSlice.js';
-import solarServiceReducer from './slices/solarServiceSlice';
+import cleaningServiceReducer from './slices/cleaningServicesSlice';
+import solarServiceReducer from './slices/solarServiceSlice.js';
 import homeInspectionReducer from './slices/homeInspectionSlice';
 
 const store = configureStore({
@@ -16,8 +16,8 @@ const store = configureStore({
     services: serviceReducer,
     personalService: personalServiceReducer,
     homeService: homeServiceReducer,
-    cleaningService: cleaningServiceReducer,
-    solarService: solarServiceReducer,
+    cleaningServices: cleaningServiceReducer,
+    solarServices: solarServiceReducer,
     homeInspection: homeInspectionReducer,
   },
 });

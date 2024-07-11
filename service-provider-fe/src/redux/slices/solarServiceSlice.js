@@ -1,14 +1,21 @@
-// src/redux/slices/solarServiceSlice.js
+// src/redux/slices/solarServicesSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../utils/apiConfig.js';
+import API from '../../utils/apiConfig';
 
-export const fetchSolarServices = createAsyncThunk('solarService/fetchSolarServices', async () => {
-  const response = await api.get('/solarServices');
-  return response.data;
-});
+export const fetchSolarServices = createAsyncThunk(
+  'solarServices/fetchSolarServices',
+  async () => {
+    try {
+      const response = await API.get('/solar-services');
+      return response.data;
+    } catch (error) {
+      throw Error(error.message);
+    }
+  }
+);
 
-const solarServiceSlice = createSlice({
-  name: 'solarService',
+const solarServicesSlice = createSlice({
+  name: 'solarServices',
   initialState: {
     services: [],
     loading: false,
@@ -31,4 +38,4 @@ const solarServiceSlice = createSlice({
   },
 });
 
-export default solarServiceSlice.reducer;
+export default solarServicesSlice.reducer;

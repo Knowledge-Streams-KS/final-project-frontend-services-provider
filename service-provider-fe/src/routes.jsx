@@ -6,13 +6,15 @@ import Login from "./components/Auth/Login.jsx";
 import Register from "./components/Auth/Registration.jsx";
 import Profile from "./components/Profile/Profile.jsx";
 import BookingList from "./components/Bookings/BookingList.jsx";
+import ServiceList from "./components/Services/ServiceList.jsx";
+import HomeService from "./components/Services/homeService.jsx";
+import CleaningService from "./components/Services/cleaningServices.jsx";
+import PersonalService from "./components/Services/personalService.jsx";
+import SolarService from "./components/Services/solarService.jsx";
+import HomeInspection from "./components/Services/homeInspection.jsx";
 import Testimonials from './components/Testimonials/Testimonials.jsx';
 import Contact from './components/Contact/Contact.jsx';
-import HomeService from './components/Services/homeService.jsx';
-import CleaningService from './components/Services/cleaningServices.jsx';
-import PersonalService from './components/Services/personalService.jsx';
-import SolarService from './components/Services/solarService.jsx';
-import HomeInspection from './components/Services/homeInspection.jsx';
+import CreateListing from './components/Services/createListing.jsx';
 
 const AppRoutes = () => (
   <Routes>
@@ -20,15 +22,18 @@ const AppRoutes = () => (
     <Route path="/about" element={<About />} />
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
-    <Route path="/services/home/:id" element={<HomeService />} />
-    <Route path="/services/cleaning/:id" element={<CleaningService />} />
-    <Route path="/services/personal/:id" element={<PersonalService />} />
-    <Route path="/services/solar/:id" element={<SolarService />} />
-    <Route path="/services/inspection/:id" element={<HomeInspection />} />
+    <Route path="/services" element={<ServiceList />} />
+    <Route path="/services/home" element={<HomeService />} />
+    <Route path="/services/cleaning" element={<CleaningService />} />
+    <Route path="/services/personal" element={<PersonalService />} />
+    <Route path="/services/solar" element={<SolarService />} />
+    <Route path="/services/inspection" element={<HomeInspection />} />
     <Route path="/bookings" element={<BookingList />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/testimonials" element={<Testimonials />} />
     <Route path="/contact" element={<Contact />} />
+    <Route path="/create-service/:categoryId" element={<CreateListing />} />
+    <Route path="/services/category/:category" element={<ServiceList />} />
   </Routes>
 );
 

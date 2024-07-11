@@ -1,14 +1,13 @@
-// src/redux/slices/personalServiceSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../utils/apiConfig.js';
+import API from '../../utils/apiConfig';
 
-export const fetchPersonalServices = createAsyncThunk('personalService/fetchPersonalServices', async () => {
-  const response = await api.get('/personalServices');
+export const fetchPersonalServices = createAsyncThunk('personalServices/fetchPersonalServices', async () => {
+  const response = await API.get('/personal-services');
   return response.data;
 });
 
 const personalServiceSlice = createSlice({
-  name: 'personalService',
+  name: 'personalServices',
   initialState: {
     services: [],
     loading: false,

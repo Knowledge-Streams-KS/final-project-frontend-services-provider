@@ -59,6 +59,16 @@ const Header = () => {
         setDropdownOpen(!dropdownOpen);
     };
 
+    const handleServiceClick = (path) => {
+        navigate(path);
+        setDropdownOpen(false);
+    };
+
+    const handleHeaderClick = (serviceType) => {
+        navigate(`/services/${serviceType}`);
+        setDropdownOpen(false);
+    };
+
     return (
         <AppBar position="static" color="default" className="shadow-md">
             <Toolbar className="flex justify-between">
@@ -81,90 +91,121 @@ const Header = () => {
                         <Button color="inherit" component={Link} to="/about" className="text-black hover:text-gray-500">
                             About
                         </Button>
-                        <div
-                            className="relative group"
-                            onMouseEnter={() => setDropdownOpen(true)}
-                            onMouseLeave={() => setDropdownOpen(false)}
-                        >
-                            <Button
-                                color="inherit"
-                                className="text-black hover:text-gray-500 inline-flex items-center"
+                        {location.pathname !== '/' && (
+                            <div
+                                className="relative group"
+                                onMouseEnter={() => setDropdownOpen(true)}
+                                onMouseLeave={() => setDropdownOpen(false)}
                             >
-                                Services
-                                <svg
-                                    className="ml-2 h-5 w-5"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
+                                <Button
+                                    color="inherit"
+                                    className="text-black hover:text-gray-500 inline-flex items-center"
                                 >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            </Button>
-                            {dropdownOpen && (
-                                <ul className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                                    <li className="font-bold px-4 py-2">Home Services</li>
-                                    {homeServices.map((service) => (
-                                        <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                            <Link
-                                                to={`/services/home/${service.id}`}
-                                                className="text-black hover:text-gray-500 block"
-                                            >
-                                                {service.name}
-                                            </Link>
+                                    Services
+                                    <svg
+                                        className="ml-2 h-5 w-5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.25 4.25a.75.75 0 01-1.06 0L5.23 8.27a.75.75 0 01.02-1.06z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </Button>
+                                {dropdownOpen && (
+                                    <ul className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                                        <li>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-400 w-full text-left" component={Link} to='/services' onClick={() => handleHeaderClick('ServiceList')}>
+                                                All Services
+                                            </Button>
                                         </li>
-                                    ))}
-                                    <li className="font-bold px-4 py-2">Cleaning Services</li>
-                                    {cleaningServices.map((service) => (
-                                        <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                            <Link
-                                                to={`/services/cleaning/${service.id}`}
-                                                className="text-black hover:text-gray-500 block"
-                                            >
-                                                {service.name}
-                                            </Link>
+                                        <li>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-400 w-full text-left" component={Link} to='/services/home' onClick={() => handleHeaderClick('home')}>
+                                                Home Services
+                                            </Button>
                                         </li>
-                                    ))}
-                                    <li className="font-bold px-4 py-2">Personal Services</li>
-                                    {personalServices.map((service) => (
-                                        <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                            <Link
-                                                to={`/services/personal/${service.id}`}
-                                                className="text-black hover:text-gray-500 block"
-                                            >
-                                                {service.name}
-                                            </Link>
+                                        {homeServices.map((service) => (
+                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
+                                                <Button
+                                                    color="inherit"
+                                                    className="text-black hover:bg-gray-100 block w-full text-left"
+                                                    onClick={() => handleServiceClick(`/services/home/${service.id}`)}
+                                                >
+                                                    {service.name}
+                                                </Button>
+                                            </li>
+                                        ))}
+                                        <li>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-400 w-full text-left" component={Link} to='/services/cleaning' onClick={() => handleHeaderClick('cleaning')}>
+                                                Cleaning Services
+                                            </Button>
                                         </li>
-                                    ))}
-                                    <li className="font-bold px-4 py-2">Solar Services</li>
-                                    {solarServices.map((service) => (
-                                        <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                            <Link
-                                                to={`/services/solar/${service.id}`}
-                                                className="text-black hover:text-gray-500 block"
-                                            >
-                                                {service.name}
-                                            </Link>
+                                        {cleaningServices.map((service) => (
+                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
+                                                <Button
+                                                    color="inherit"
+                                                    className="text-black hover:bg-gray-100 block w-full text-left"
+                                                    onClick={() => handleServiceClick(`/services/cleaning/${service.id}`)}
+                                                >
+                                                    {service.name}
+                                                </Button>
+                                            </li>
+                                        ))}
+                                        <li>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-100 w-full text-left" component={Link} to='/services/personal' onClick={() => handleHeaderClick('personal')}>
+                                                Personal Services
+                                            </Button>
                                         </li>
-                                    ))}
-                                    <li className="font-bold px-4 py-2">Home Inspections</li>
-                                    {homeInspections.map((service) => (
-                                        <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                            <Link
-                                                to={`/services/inspection/${service.id}`}
-                                                className="text-black hover:text-gray-500 block"
-                                            >
-                                                {service.name}
-                                            </Link>
+                                        {personalServices.map((service) => (
+                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
+                                                <Button
+                                                    color="inherit"
+                                                    className="text-black hover:bg-gray-100 block w-full text-left"
+                                                    onClick={() => handleServiceClick(`/services/personal/${service.id}`)}
+                                                >
+                                                    {service.name}
+                                                </Button>
+                                            </li>
+                                        ))}
+                                        <li>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-100 w-full text-left" component={Link} to='/services/solar' onClick={() => handleHeaderClick('solar')}>
+                                                Solar Services
+                                            </Button>
                                         </li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
+                                        {solarServices.map((service) => (
+                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
+                                                <Button
+                                                    className="text-black hover:bg-gray-400 block w-full text-left"
+                                                    onClick={() => handleServiceClick(`/services/solar/${service.id}`)}
+                                                >
+                                                    {service.name}
+                                                </Button>
+                                            </li>
+                                        ))}
+                                        <li>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-100 w-full text-left" component={Link} to='/services/inspection' onClick={() => handleHeaderClick('inspection')}>
+                                                Home Inspections
+                                            </Button>
+                                        </li>
+                                        {homeInspections.map((service) => (
+                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
+                                                <Button
+                                                    color="inherit"
+                                                    className="text-black hover:bg-gray-100 block w-full text-left"
+                                                    onClick={() => handleServiceClick(`/services/inspection/${service.id}`)}
+                                                >
+                                                    {service.name}
+                                                </Button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        )}
                         <Button color="inherit" component={Link} to="/testimonials" className="text-black hover:text-gray-500">
                             Testimonials
                         </Button>

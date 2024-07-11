@@ -1,6 +1,6 @@
 import React, { createContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, logout, registerUser, setUser, updateUserProfile as updateUserProfileAction } from '../redux/slices/authSlice.js';
+import { fetchUserProfile, loginUser, logout, registerUser, setUser, updateUserProfile as updateUserProfileAction } from '../redux/slices/authSlice.js';
 import API from '../utils/apiConfig.js';
 
 const AuthContext = createContext();
@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem('authToken', result.payload.token);
             API.defaults.headers.common['Authorization'] = `Bearer ${result.payload.token}`;
             dispatch(setUser(result.payload));
+            dispatch(fetchUserProfile())
         }
     };
 

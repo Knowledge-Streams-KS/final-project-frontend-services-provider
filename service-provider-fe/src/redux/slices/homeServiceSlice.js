@@ -1,14 +1,20 @@
-// src/redux/slices/homeServiceSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../utils/apiConfig.js';
+import API from '../../utils/apiConfig';
 
-export const fetchHomeServices = createAsyncThunk('homeService/fetchHomeServices', async () => {
-  const response = await api.get('/homeServices');
+export const fetchHomeServices = createAsyncThunk(
+  'homeServices/fetchHomeServices', 
+  async () => {
+     try {
+  const response = await API.get('/home-service');
   return response.data;
-});
+} catch (error) {
+      throw Error(error.message);
+    }
+  }
+);
 
 const homeServiceSlice = createSlice({
-  name: 'homeService',
+  name: 'homeServices',
   initialState: {
     services: [],
     loading: false,

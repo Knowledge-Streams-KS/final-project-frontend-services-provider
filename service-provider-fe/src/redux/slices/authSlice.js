@@ -1,3 +1,4 @@
+// src/redux/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/apiConfig';
 
@@ -29,14 +30,15 @@ export const fetchUserProfile = createAsyncThunk('auth/fetchUserProfile', async 
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
-export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', async(userData, thunkAPI) => {
-  try{
-    const response = await API.put('/users/profile', userData)
-    return response.data
-  }catch(error){
-    return thunkAPI.rejectWithValue(error.response.data)
+
+export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', async (userData, thunkAPI) => {
+  try {
+    const response = await API.put('/users/profile', userData);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
   }
-})
+});
 
 const authSlice = createSlice({
   name: 'auth',
@@ -103,7 +105,7 @@ const authSlice = createSlice({
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      })
+      });
   }
 });
 

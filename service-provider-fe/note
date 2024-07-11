@@ -1,38 +1,64 @@
 Service Provider/
 ├── public/
-├── src/
-│   ├── components/
-│   │   ├── Auth/
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   ├── Bookings/
-│   │   │   ├── BookingList.jsx
-│   │   │   ├── BookingDetails.jsx
-│   │   ├── Services/
-│   │   │   ├── ServiceList.jsx
-│   │   │   ├── ServiceDetails.jsx
-│   │   ├── Profile/
-│   │   │   ├── Profile.jsx
-│   │   ├── Layout/
-│   │   │   ├── Header.jsx
-│   │   │   ├── Footer.jsx
-│   ├── context/
-│   │   ├── AuthContext.jsx
-│   ├── pages/
-│   │   ├── Home.jsx
-│   ├── redux/
-│   │   ├── slices/
-│   │   │   ├── authSlice.js
-│   │   │   ├── bookingSlice.js
-│   │   │   ├── serviceSlice.js
-│   │   ├── store.js
-│   ├── utils/
-│   │   ├── apiConfig.js
-│   │   ├── api.js
-│   ├── App.js
-│   ├── main.js
-│   ├── index.css
-│   ├── routes.js
+|src/
+├── App.jsx
+├── index.css
+├── main.jsx
+├── routes.jsx
+├── assets/
+│   ├── cleaning_services.png
+│   ├── home_inspection.png
+│   ├── home_services.png
+│   ├── illustration.png
+│   ├── logo.png
+│   ├── personal_care.png
+│   ├── solar_service.png
+├── components/
+│   ├── About.jsx
+│   ├── Hero.jsx
+│   ├── Auth/
+│   │   ├── Login.jsx
+│   │   ├── Registration.jsx
+│   ├── Bookings/
+│   │   ├── BookingDetails.jsx
+│   │   ├── BookingList.jsx
+│   ├── Contact/
+│   │   ├── Contact.jsx
+│   ├── Layout/
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   ├── Profile/
+│   │   ├── Profile.jsx
+│   ├── Services/
+│   │   ├── cleaningServices.jsx
+│   │   ├── createListing.jsx
+│   │   ├── homeInspection.jsx
+│   │   ├── homeService.jsx
+│   │   ├── personalService.jsx
+│   │   ├── ServiceList.jsx
+│   │   ├── solarService.jsx
+│   ├── Testimonials/
+│   │   ├── Testimonials.jsx
+├── context/
+│   ├── AuthContext.jsx
+├── pages/
+│   ├── Home.jsx
+├── redux/
+│   ├── store.js
+│   ├── selectors/
+│   │   ├── serviceSelectors.js
+│   ├── slices/
+│   │   ├── authSlice.js
+│   │   ├── bookingSlice.js
+│   │   ├── cleaningServicesSlice.js
+│   │   ├── homeInspectionSlice.js
+│   │   ├── homeServiceSlice.js
+│   │   ├── personalServiceSlice.js
+│   │   ├── serviceSlice.js
+│   │   ├── solarServiceSlice.js
+├── utils/
+│   ├── api.js
+│   ├── apiConfig.js
 ├── index.html
 ├── package.json
 ├── tailwind.config.js

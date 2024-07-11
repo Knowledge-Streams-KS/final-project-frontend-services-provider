@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Register = () => {
-    const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', password: '', role: 'customer' });
+    const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', password: '', address: '', phoneNumber: '', role: 'customer' });
     const { register, loading, error, user } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const Register = () => {
         }
     }, [user, navigate]);
     return (
-        <Container maxWidth="xs" className='mt-32'>
+        <Container maxWidth="xs" className='mt-16'>
             <Typography variant="h4" className="mt-8 mb-4 text-center">
                 Register
             </Typography>
@@ -60,6 +60,22 @@ const Register = () => {
                     fullWidth
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                />
+                <TextField
+                    label="Address"
+                    type="address"
+                    variant="outlined"
+                    fullWidth
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                />
+                <TextField
+                    label="Phone Number"
+                    type="phone number"
+                    variant="outlined"
+                    fullWidth
+                    value={formData.phoneNumber}
+                    onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                 />
                 <FormControl fullWidth variant="outlined">
                     <InputLabel id="role-label">Role</InputLabel>

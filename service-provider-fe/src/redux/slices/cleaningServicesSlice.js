@@ -1,14 +1,21 @@
-// src/redux/slices/cleaningServiceSlice.js
+// src/redux/slices/cleaningServicesSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../utils/apiConfig.js';
+import API from '../../utils/apiConfig';
 
-export const fetchCleaningServices = createAsyncThunk('cleaningService/fetchCleaningServices', async () => {
-  const response = await api.get('/cleaningServices');
-  return response.data;
-});
+export const fetchCleaningServices = createAsyncThunk(
+  'cleaningServices/fetchCleaningServices',
+  async () => {
+    try {
+      const response = await API.get('/cleaning');
+      return response.data;
+    } catch (error) {
+      throw Error(error.message);
+    }
+  }
+);
 
-const cleaningServiceSlice = createSlice({
-  name: 'cleaningService',
+const cleaningServicesSlice = createSlice({
+  name: 'cleaningServices',
   initialState: {
     services: [],
     loading: false,
@@ -19,6 +26,7 @@ const cleaningServiceSlice = createSlice({
     builder
       .addCase(fetchCleaningServices.pending, (state) => {
         state.loading = true;
+        state.error = null;
       })
       .addCase(fetchCleaningServices.fulfilled, (state, action) => {
         state.services = action.payload;
@@ -31,4 +39,4 @@ const cleaningServiceSlice = createSlice({
   },
 });
 
-export default cleaningServiceSlice.reducer;
+export default cleaningServicesSlice.reducer;

@@ -71,7 +71,7 @@ const Hero = () => {
                     <div className="container mx-auto text-center">
                         <h2 className="text-4xl font-bold mb-4">Our Affiliations</h2>
                         <div className="flex justify-center space-x-4">
-                            <img src="affiliation1.png" alt="Affiliation 1" className="h-12" />
+                            <img src={logo} alt="Company Logo" className="h-8" />
                             <img src="affiliation2.png" alt="Affiliation 2" className="h-12" />
                             <img src="affiliation3.png" alt="Affiliation 3" className="h-12" />
                             <img src="affiliation4.png" alt="Affiliation 4" className="h-12" />
