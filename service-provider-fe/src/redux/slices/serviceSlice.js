@@ -6,7 +6,6 @@ export const fetchServicesByCategory = createAsyncThunk(
   async (category, { rejectWithValue }) => {
     try {
       const response = await API.get(`/services/category/${category}`);
-      console.log('Fetched services by category:', response.data); // Log response data
       return response.data;
     } catch (err) {
       console.error('Error fetching services by category:', err.response.data); // Log error
@@ -20,7 +19,6 @@ export const fetchAllServices = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await API.get('/services');
-      console.log('Fetched all services:', response.data); // Log response data
       return response.data;
     } catch (err) {
       console.error('Error fetching all services:', err.response.data); // Log error
@@ -33,8 +31,7 @@ export const createServiceListing = createAsyncThunk(
   "services/createServiceListing",
   async (serviceData, { rejectWithValue }) => {
     try {
-      const response = await API.post('/services', serviceData);
-      console.log('Service created:', response.data); // Log response data
+      const response = await API.post('/services/create-service', serviceData);
       return response.data;
     } catch (err) {
       console.error('Error creating service:', err.response.data); // Log error

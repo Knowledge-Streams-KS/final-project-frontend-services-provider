@@ -12,8 +12,6 @@ export const createBooking = (bookingData) => api.post('/bookings', bookingData)
 export const createServiceListing = (serviceData) => api.post('/services', serviceData)
 export const fetchServicesByCategory = (category) => api.get(`/services/category/${category}`);
 export const fetchAllServices = () => api.get('/services');
-// export const createServiceListing = (serviceData) => api.post('/solar-services', serviceData)
-// export const createServiceListing = (serviceData) => api.post('/home-inspections', serviceData)
 
 
 

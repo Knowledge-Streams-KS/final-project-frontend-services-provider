@@ -6,7 +6,7 @@ export const fetchSolarServices = createAsyncThunk(
   'solarServices/fetchSolarServices',
   async () => {
     try {
-      const response = await API.get('/solar-services');
+      const response = await API.get('/services/category/a5453152-6cd6-438e-846c-f83bb5a27c19');
       return response.data;
     } catch (error) {
       throw Error(error.message);

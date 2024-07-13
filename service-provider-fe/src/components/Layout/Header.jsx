@@ -223,6 +223,11 @@ const Header = () => {
                                 <Button color="inherit" onClick={handleLogout} className="text-black hover:text-gray-500">
                                     Logout
                                 </Button>
+                                {user.role === 'provider' && (
+                                    <Button color="inherit" component={Link} to="/create-service" className="text-black hover:text-gray-500">
+                                        Create Service
+                                    </Button>
+                                )}
                             </>
                         ) : (
                             <>

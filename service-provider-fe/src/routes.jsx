@@ -5,7 +5,8 @@ import About from "./components/About.jsx";
 import Login from "./components/Auth/Login.jsx";
 import Register from "./components/Auth/Registration.jsx";
 import Profile from "./components/Profile/Profile.jsx";
-import BookingList from "./components/Bookings/BookingList.jsx";
+import BookingList from './components/Bookings/BookingList';
+import BookingDetails from './components/Bookings/BookingDetails';
 import ServiceList from "./components/Services/ServiceList.jsx";
 import HomeService from "./components/Services/homeService.jsx";
 import CleaningService from "./components/Services/cleaningServices.jsx";
@@ -29,10 +30,11 @@ const AppRoutes = () => (
     <Route path="/services/solar" element={<SolarService />} />
     <Route path="/services/inspection" element={<HomeInspection />} />
     <Route path="/bookings" element={<BookingList />} />
+    <Route path="/bookings/:id" element={<BookingDetails />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/testimonials" element={<Testimonials />} />
     <Route path="/contact" element={<Contact />} />
-    <Route path="/create-service/:categoryId" element={<CreateListing />} />
+    <Route path="/create-service" element={<CreateListing />} />
     <Route path="/services/category/:category" element={<ServiceList />} />
   </Routes>
 );

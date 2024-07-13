@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchServicesByCategory, fetchAllServices } from "../../redux/slices/serviceSlice.js";
+import { fetchServicesByCategory, fetchAllServices } from "../../redux/slices/serviceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
@@ -13,10 +13,8 @@ const ServiceList = () => {
 
   useEffect(() => {
     if (category) {
-      console.log('Fetching services for category:', category); // Log category
       dispatch(fetchServicesByCategory(category));
     } else {
-      console.log('Fetching all services'); // Log fetch all
       dispatch(fetchAllServices());
     }
   }, [dispatch, category]);
@@ -27,20 +25,16 @@ const ServiceList = () => {
     }
   }, [error]);
 
-  useEffect(() => {
-    console.log('Fetched services:', services); // Log fetched services
-  }, [services]);
-
   return (
-    <div className="container mx-auto mt-16 px-4">
-      <h2 className="text-4xl font-bold text-center mt-16 mb-8 text-gray-800">
+    <div className="container mx-auto mt-8 px-4">
+      <h2 className="text-4xl font-bold text-center mt-12 mb-4 text-gray-800">
         {category ? `${category} Services` : "All Services"}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {services.map((service) => (
           <div key={service.id} className="bg-gray-200 shadow-lg rounded-lg overflow-hidden hover:shadow-slate-800 transition-shadow duration-300">
             <div className="flex items-center p-6">
-              <img src={homeInspection} alt={service.serviceName} className="h-16 w-16 rounded-xl mr-4" />
+              <img src={homeInspection} alt={service.serviceName} className="h-32 w-32 rounded-xl mr-4" />
               <div>
                 <h3 className="text-xl font-semibold text-gray-900">{service.serviceName}</h3>
                 <p className="text-gray-700">{service.description}</p>

@@ -1,40 +1,63 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// src/components/Bookings/BookingList.jsx
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBookings } from '../../redux/slices/bookingSlice';
+import { Link } from 'react-router-dom';
 import { Container, Typography, Card, CardContent } from '@mui/material';
+import { toast } from 'react-toastify';
 
-const BookingDetails = () => {
-    const { id } = useParams();
-    const { bookings } = useSelector((state) => state.bookings);
-    const booking = bookings.find((booking) => booking.id === id);
+const BookingList = () => {
+    const dispatch = useDispatch();
+    const { bookings, loading, error } = useSelector((state) => state.bookings);
 
-    if (!booking) return <Typography variant="h6">Booking not found</Typography>;
+    useEffect(() => {
+        dispatch(fetchBookings());
+        if (error) {
+            toast.error('Failed to fetch bookings');
+        }
+    }, [dispatch, error]);
 
     return (
         <Container>
-            <Typography variant="h4" className="mt-8 mb-4 text-center">
-                Booking Details
+            <Typography variant="h4" className="mt-16 mb-4 text-center">
+                Bookings
             </Typography>
-            <Card className="shadow-lg">
-                <CardContent>
-                    <Typography variant="h5">{booking.serviceName}</Typography>
-                    <Typography variant="body2">{booking.date}</Typography>
-                    <Typography variant="body2" color="textSecondary">
-                        {booking.time}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                        Status: {booking.status}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                        Provider: {booking.providerName}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                        Location: {booking.location}
-                    </Typography>
-                </CardContent>
-            </Card>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {bookings.map((booking) => (
+                    <Link to={`/bookings/${booking.id}`} key={booking.id}>
+                        <Card className="shadow-lg rounded-lg overflow-hidden bg-white hover:shadow-2xl transition-shadow duration-300">
+                            <CardContent className="p-4">
+                                <Typography variant="h5" className="text-xl font-semibold text-gray-900">
+                                    {booking.Service.serviceName}
+                                </Typography>
+                                <Typography variant="body2" className="text-gray-700">
+                                    {booking.Service.description}
+                                </Typography>
+                                <Typography variant="body2" className="text-green-500 font-bold">
+                                    Price: ${booking.Service.price}
+                                </Typography>
+                                <Typography variant="body2" className="text-gray-600">
+                                    Date: {booking.date}
+                                </Typography>
+                                <Typography variant="body2" className="text-gray-600">
+                                    Time: {booking.time}
+                                </Typography>
+                                <Typography variant="body2" className="text-blue-500">
+                                    Status: {booking.status}
+                                </Typography>
+                                <Typography variant="body2" className="text-gray-800 font-bold">
+                                    Customer: {booking.User.firstName} {booking.User.lastName}
+                                </Typography>
+                                <Typography variant="body2" className="text-gray-800">
+                                    Email: {booking.User.email}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Link>
+                ))}
+            </div>
         </Container>
     );
 };
 
-export default BookingDetails;
+export default BookingList;

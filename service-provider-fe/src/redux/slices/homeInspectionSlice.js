@@ -1,9 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/apiConfig';
 
-export const fetchHomeInspections = createAsyncThunk('homeInspection/fetchHomeInspections', async () => {
-  const response = await API.get('/home-inspections');
+export const fetchHomeInspections = createAsyncThunk(
+  'homeInspection/fetchHomeInspections', 
+  async () => {
+    try{
+  const response = await API.get('/services/category/21e7b1a2-888b-43ee-b5c0-c6cd60ad9581');
   return response.data;
+    }catch(error) {
+      throw Error(error.message);
+    }
 });
 
 const homeInspectionSlice = createSlice({

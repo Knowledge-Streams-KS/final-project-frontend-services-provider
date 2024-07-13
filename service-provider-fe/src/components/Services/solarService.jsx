@@ -1,9 +1,8 @@
-// src/components/SolarService.jsx
-
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSolarServices } from '../../redux/slices/solarServiceSlice.js';
-import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
+import solarServiceImage from '../../assets/solar_service.png';
 
 const SolarService = () => {
     const dispatch = useDispatch();
@@ -14,25 +13,31 @@ const SolarService = () => {
     }, [dispatch]);
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Solar Services</h1>
-            <Link to="/create-service/solar?redirectTo=/services/solar">
-                <button className="bg-gray-300 hover:bg-gray-400 text-gray-900 shadow-md px-4 py-2 rounded">
-                    Create Solar Service
-                </button>
-            </Link>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {services.map((service) => {
-                    console.log('Rendering service:', service);
-                    return (
-                        <div key={service.id} className="bg-white rounded-lg shadow-md p-4">
-                            <h2 className="text-xl font-semibold">{service.name}</h2>
-                            <p className="text-gray-700">{service.description}</p>
-                            <p className="text-green-500 font-bold">${service.price}</p>
-                        </div>
-                    );
-                })}
+        <div className="container mx-auto mt-8 px-4">
+            <div className="flex justify-between items-center mb-8">
+                <h2 className="text-4xl font-bold text-gray-800">Solar Services</h2>
             </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {services.map((service) => (
+                    <div key={service.id} className="bg-gray-200 shadow-lg rounded-lg overflow-hidden hover:shadow-slate-800 transition-shadow duration-300">
+                        <div className="flex items-center p-6">
+                            <img src={solarServiceImage} alt={service.serviceName} className="h-32 w-32 rounded-xl mr-4" />
+                            <div>
+                                <h3 className="text-lg font-semibold text-gray-900">{service.serviceName}</h3>
+                                <p className="text-gray-700">{service.description}</p>
+                                <p className="text-gray-600 font-bold">${service.price}</p>
+                                <div className="flex items-center mt-2">
+                                    <Button size="small" color="primary" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Book Now
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+            {loading && <p>Loading...</p>}
+            {error && <p className="text-red-500">{error}</p>}
         </div>
     );
 };
