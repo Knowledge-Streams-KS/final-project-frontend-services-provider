@@ -19,36 +19,40 @@ const HomeInspection = () => {
     };
 
     return (
-        <div className="container mx-auto mt-8 px-4">
+        <div className="container mx-auto mt-12 px-8 mb-4 rounded-lg">
             <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-800">Home Inspection Services</h2>
+                <h2 className="text-3xl font-bold text-gray-800">Hom Inspection Services</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {status === 'loading' && <p>Loading...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {services.map((service) => (
                     <div key={service.id} className="bg-gray-200 shadow-lg rounded-lg overflow-hidden hover:shadow-slate-800 transition-shadow duration-300">
-                        <div className="flex items-center p-4">
-                            <img src={homeInspectionImage} alt={service.serviceName} className="h-32 w-32 rounded-xl mr-4" />
-                            <div>
-                                <h3 className="text-ld font-semibold text-gray-900">{service.serviceName}</h3>
-                                <p className="text-gray-700">{service.description}</p>
-                                <p className="text-gray-600 font-bold">${service.price}</p>
-                                <div className="flex items-center mt-2">
-                                    <Button
-                                        size="small"
-                                        color="primary"
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                        onClick={() => handleBookNowClick(service.id)}
-                                    >
-                                        Book Now
-                                    </Button>
+                        <div className="p-6 flex flex-col justify-between h-full">
+                            <div className="flex justify-between items-start mb-4">
+                                <div className="flex-1 ml-4">
+                                    <h3 className="text-xl font-semibold text-gray-900">{service.serviceName}</h3>
+                                    <p className="text-gray-700">{service.description}</p>
+                                    <p className="text-gray-600 font-bold">Rs {service.price}</p>
                                 </div>
+                                <img src={homeInspectionImage} alt={service.serviceName} className="h-32 w-32 rounded-xl" />
+                            </div>
+                            <div className="flex justify-between items-center mt-4">
+                                <Button
+                                    size="small"
+                                    variant="contained"
+                                    color="primary"
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-full"
+                                    onClick={() => handleBookNowClick(service.id)}
+                                >
+                                    Book Now
+                                </Button>
+                                <span className="text-yellow-500 mr-8">★★★★ {service.rating}</span>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-            {status === 'loading' && <p>Loading...</p>}
-            {error && <p className="text-red-500">{error}</p>}
         </div>
     );
 };
