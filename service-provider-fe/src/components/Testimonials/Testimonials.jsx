@@ -1,27 +1,29 @@
+// src/components/Testimonials/Testimonials.jsx
 import React from 'react';
+import { Container, Typography, Card, CardContent } from '@mui/material';
+
+const testimonialsData = [
+    { id: 1, name: 'John Doe', testimonial: 'Great service!' },
+    { id: 2, name: 'Jane Smith', testimonial: 'Very reliable and professional.' },
+    // Add more testimonials here
+];
 
 const Testimonials = () => {
     return (
-        <section id="testimonials" className="py-12 bg-gray-100 mt-16 mx-10 rounded-2xl shadow-2xl">
-            <div className="container mx-auto text-center">
-                <h2 className="text-4xl font-bold mb-8">What Our Clients Say</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="p-4 border rounded-lg">
-                        <p className="italic">"Great service!"</p>
-                        <p className="font-bold mt-2">- Client 1</p>
-                    </div>
-                    <div className="p-4 border rounded-lg">
-                        <p className="italic">"Highly recommend!"</p>
-                        <p className="font-bold mt-2">- Client 2</p>
-                    </div>
-                    <div className="p-4 border rounded-lg">
-                        <p className="italic">"Excellent support!"</p>
-                        <p className="font-bold mt-2">- Client 3</p>
-                    </div>
-                </div>
+        <Container>
+            <Typography variant="h4" className="text-center mt-8 mb-4">Testimonials</Typography>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {testimonialsData.map((testimonial) => (
+                    <Card key={testimonial.id} className="shadow-lg rounded-lg">
+                        <CardContent>
+                            <Typography variant="h6">{testimonial.name}</Typography>
+                            <Typography variant="body1">{testimonial.testimonial}</Typography>
+                        </CardContent>
+                    </Card>
+                ))}
             </div>
-        </section>
+        </Container>
     );
-}
+};
 
 export default Testimonials;

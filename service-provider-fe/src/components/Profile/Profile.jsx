@@ -3,7 +3,7 @@ import { TextField, Button, Container, Typography, Avatar, IconButton, Card, Car
 import { useDispatch, useSelector } from 'react-redux';
 import AuthContext from '../../context/AuthContext';
 import { toast } from 'react-toastify';
-import { PhotoCamera } from '@mui/icons-material';
+import { Password, PhotoCamera } from '@mui/icons-material';
 import { fetchUserProfile } from '../../redux/slices/authSlice';
 
 const Profile = () => {
@@ -17,6 +17,7 @@ const Profile = () => {
         email: '',
         phoneNumber: '',
         address: '',
+        password: "",
     });
 
     useEffect(() => {
@@ -32,7 +33,8 @@ const Profile = () => {
                 lastName: user.lastName || '',
                 email: user.email || '',
                 phoneNumber: user.phoneNumber || '',
-                address: user.address || ''
+                address: user.address || '',
+                password: user.password || '',
             });
         }
     }, [user]);
@@ -106,6 +108,13 @@ const Profile = () => {
                             fullWidth
                             value={formData.address}
                             onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                        />
+                        <TextField
+                            label="Password"
+                            variant="outlined"
+                            fullWidth
+                            value={formData.password}
+                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         />
                         <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
                             Update Profile

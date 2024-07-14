@@ -1,9 +1,7 @@
-// src/components/Bookings/BookingList.jsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookings } from '../../redux/slices/bookingSlice';
-import { Link } from 'react-router-dom';
-import { Container, Typography, Card, CardContent } from '@mui/material';
+import { Container, Typography, Card, CardContent, Grid } from '@mui/material';
 import { toast } from 'react-toastify';
 
 const BookingList = () => {
@@ -12,50 +10,52 @@ const BookingList = () => {
 
     useEffect(() => {
         dispatch(fetchBookings());
+    }, [dispatch]);
+
+    useEffect(() => {
         if (error) {
             toast.error('Failed to fetch bookings');
         }
-    }, [dispatch, error]);
+    }, [error]);
+
+    useEffect(() => {
+        console.log("Bookings data: ", bookings); // Log bookings data
+    }, [bookings]);
 
     return (
         <Container>
-            <Typography variant="h4" className="mt-16 mb-4 text-center">
-                Bookings
+            <Typography variant="h4" className="mt-8 mb-4 text-center">
+                Booking List
             </Typography>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {bookings.map((booking) => (
-                    <Link to={`/bookings/${booking.id}`} key={booking.id}>
-                        <Card className="shadow-lg rounded-lg overflow-hidden bg-white hover:shadow-2xl transition-shadow duration-300">
-                            <CardContent className="p-4">
-                                <Typography variant="h5" className="text-xl font-semibold text-gray-900">
-                                    {booking.Service.serviceName}
-                                </Typography>
-                                <Typography variant="body2" className="text-gray-700">
-                                    {booking.Service.description}
-                                </Typography>
-                                <Typography variant="body2" className="text-green-500 font-bold">
-                                    Price: ${booking.Service.price}
-                                </Typography>
-                                <Typography variant="body2" className="text-gray-600">
-                                    Date: {booking.date}
-                                </Typography>
-                                <Typography variant="body2" className="text-gray-600">
-                                    Time: {booking.time}
-                                </Typography>
-                                <Typography variant="body2" className="text-blue-500">
-                                    Status: {booking.status}
-                                </Typography>
-                                <Typography variant="body2" className="text-gray-800 font-bold">
-                                    Customer: {booking.User.firstName} {booking.User.lastName}
-                                </Typography>
-                                <Typography variant="body2" className="text-gray-800">
-                                    Email: {booking.User.email}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Link>
-                ))}
-            </div>
+            {loading && <Typography>Loading...</Typography>}
+            {error && <Typography color="error">{error}</Typography>}
+            {bookings && (
+                <Grid container spacing={3}>
+                    {bookings.map((booking) => (
+                        <Grid item xs={12} md={6} lg={4} key={booking.id}>
+                            <Card>
+                                <CardContent>
+                                    <Typography variant="h5" component="div">
+                                        {booking.service?.serviceName || 'Service Name Not Available'}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary">
+                                        <strong>Date:</strong> {booking.date}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary">
+                                        <strong>Time:</strong> {booking.time}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary">
+                                        <strong>Status:</strong> {booking.status}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary">
+                                        <strong>Customer Name:</strong> {booking.user ? `${booking.user.name} ` : 'Customer Name Not Available'}
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            )}
         </Container>
     );
 };

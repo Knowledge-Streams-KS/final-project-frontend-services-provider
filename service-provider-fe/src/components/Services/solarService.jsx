@@ -12,6 +12,10 @@ const SolarService = () => {
         dispatch(fetchSolarServices());
     }, [dispatch]);
 
+    const handleBookNowClick = (serviceId) => {
+        navigate(`/book-service/${serviceId}`);
+    };
+
     return (
         <div className="container mx-auto mt-8 px-4">
             <div className="flex justify-between items-center mb-8">
@@ -27,7 +31,12 @@ const SolarService = () => {
                                 <p className="text-gray-700">{service.description}</p>
                                 <p className="text-gray-600 font-bold">${service.price}</p>
                                 <div className="flex items-center mt-2">
-                                    <Button size="small" color="primary" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    <Button
+                                        size="small"
+                                        color="primary"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                        onClick={() => handleBookNowClick(service.id)}
+                                    >
                                         Book Now
                                     </Button>
                                 </div>

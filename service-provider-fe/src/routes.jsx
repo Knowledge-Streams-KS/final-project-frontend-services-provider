@@ -16,6 +16,7 @@ import HomeInspection from "./components/Services/homeInspection.jsx";
 import Testimonials from './components/Testimonials/Testimonials.jsx';
 import Contact from './components/Contact/Contact.jsx';
 import CreateListing from './components/Services/createListing.jsx';
+import BookService from "./components/Bookings/BookService.jsx";
 
 const AppRoutes = () => (
   <Routes>
@@ -36,6 +37,7 @@ const AppRoutes = () => (
     <Route path="/contact" element={<Contact />} />
     <Route path="/create-service" element={<CreateListing />} />
     <Route path="/services/category/:category" element={<ServiceList />} />
+    <Route path="book-service/:serviceId" element={<BookService />} />
   </Routes>
 );
 

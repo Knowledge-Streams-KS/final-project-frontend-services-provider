@@ -2,15 +2,21 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCleaningServices } from "../../redux/slices/cleaningServicesSlice";
 import { Button } from "@mui/material";
-import cleaningServiceImage from "../../assets/cleaning_services.png"; // Ensure this path is correct
+import { useNavigate } from "react-router-dom";
+import cleaningServiceImage from "../../assets/cleaning_services.png";
 
 const CleaningService = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { services, loading, error } = useSelector((state) => state.cleaningServices);
 
     useEffect(() => {
         dispatch(fetchCleaningServices());
     }, [dispatch]);
+
+    const handleBookNowClick = (serviceId) => {
+        navigate(`/book-service/${serviceId}`);
+    };
 
     return (
         <div className="container mx-auto mt-8 px-4">
@@ -27,7 +33,12 @@ const CleaningService = () => {
                                 <p className="text-gray-700">{service.description}</p>
                                 <p className="text-gray-600 font-bold">${service.price}</p>
                                 <div className="flex items-center mt-2">
-                                    <Button size="small" color="primary" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                    <Button
+                                        size="small"
+                                        color="primary"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                        onClick={() => handleBookNowClick(service.id)}
+                                    >
                                         Book Now
                                     </Button>
                                 </div>

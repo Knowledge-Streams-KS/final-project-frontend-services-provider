@@ -9,7 +9,7 @@ export const fetchBookings = createAsyncThunk(
       const response = await API.get('/bookings');
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.response.data || error.message);
     }
   }
 );
@@ -40,7 +40,7 @@ export const fetchBookingById = createAsyncThunk(
 
 const bookingSlice = createSlice({
   name: 'bookings',
-  initialState: { bookings: [], loading: false, error: null },
+  initialState: { bookings: [], booking: null, loading: false, error: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -68,7 +68,7 @@ const bookingSlice = createSlice({
         state.loading = false;
         state.error = payload;
       })
-       .addCase(fetchBookingById.pending, (state) => {
+      .addCase(fetchBookingById.pending, (state) => {
         state.loading = true;
         state.error = null;
       })

@@ -6,6 +6,7 @@ export const registerUser = createAsyncThunk('auth/registerUser', async (userDat
   try {
     const response = await API.post('/users/register', userData);
     localStorage.setItem('authToken', response.data.token);
+    localStorage.setItem('userId', response.data.user.id); // Store userId in local storage
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -16,6 +17,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (userData, thu
   try {
     const response = await API.post('/users/login', userData);
     localStorage.setItem('authToken', response.data.token);
+    localStorage.setItem('userId', response.data.user.id);
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
@@ -51,6 +53,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.user = null;
       localStorage.removeItem('authToken');
+      localStorage.removeItem('userId');
     },
     setUser: (state, action) => {
       state.user = action.payload;
