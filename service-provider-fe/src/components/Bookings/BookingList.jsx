@@ -23,38 +23,40 @@ const BookingList = () => {
     }, [bookings]);
 
     return (
-        <Container>
+        <Container className='bg-gray-100 mt-12 rounded-lg p-4'>
             <Typography variant="h4" className="mt-8 mb-4 text-center">
                 Booking List
             </Typography>
             {loading && <Typography>Loading...</Typography>}
             {error && <Typography color="error">{error}</Typography>}
-            {bookings && (
+            {bookings && bookings.length > 0 ? (
                 <Grid container spacing={3}>
                     {bookings.map((booking) => (
-                        <Grid item xs={12} md={6} lg={4} key={booking.id}>
-                            <Card>
-                                <CardContent>
+                        <Grid item xs={12} sm={6} md={4} key={booking.id}>
+                            <Card className='shadow-lg'>
+                                <CardContent className='bg-gray-200 rounded-lg p-4'>
                                     <Typography variant="h5" component="div">
-                                        {booking.service?.serviceName || 'Service Name Not Available'}
+                                        {booking.Service?.serviceName || 'Service Name Not Available'}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography variant="body2" color="textSecondary" className='mt-2'>
                                         <strong>Date:</strong> {booking.date}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography variant="body2" color="textSecondary" className='mt-1'>
                                         <strong>Time:</strong> {booking.time}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
+                                    <Typography variant="body2" color="textSecondary" className='mt-1'>
                                         <strong>Status:</strong> {booking.status}
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary">
-                                        <strong>Customer Name:</strong> {booking.user ? `${booking.user.name} ` : 'Customer Name Not Available'}
+                                    <Typography variant="body2" color="textSecondary" className='mt-1'>
+                                        <strong>Customer Name:</strong> {booking.User ? `${booking.User.firstName} ${booking.User.lastName}` : 'Customer Name Not Available'}
                                     </Typography>
                                 </CardContent>
                             </Card>
                         </Grid>
                     ))}
                 </Grid>
+            ) : (
+                <Typography>No bookings available.</Typography>
             )}
         </Container>
     );
