@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import homeInspection from '../../assets/home_inspection.png';
 
 const ServiceList = () => {
   const { category } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { services, error } = useSelector((state) => state.services);
 
   useEffect(() => {
@@ -30,7 +32,7 @@ const ServiceList = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8 px-4">
+    <div className="container mx-auto mt-4 px-8 mb-4">
       <h2 className="text-4xl font-bold text-center mt-12 mb-4 text-gray-800">
         {category ? `${category} Services` : "All Services"}
       </h2>
@@ -46,8 +48,8 @@ const ServiceList = () => {
                 <div className="flex items-center mt-2">
                   <span className="text-yellow-500 mr-2">★ {service.rating}</span>
                   <Button
-                    size="small"
-                    color="primary"
+                    // // size="small"
+                    // color="primary"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() => handleBookNowClick(service.id)}
                   >

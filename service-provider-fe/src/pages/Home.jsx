@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import homeServices from '../assets/home_services.png'; // Ensure correct paths for images
+import homeServices from '../assets/home_services.png';
 import cleaningServices from '../assets/cleaning_services.png';
 import personalCare from '../assets/personal_care.png';
 import solarService from '../assets/solar_service.png';
@@ -13,7 +13,7 @@ import sweetcreamLogo from '../assets/sweetcream.png';
 import yasirbroastLogo from '../assets/yasirbroast.png';
 import CheeziousLogo from '../assets/Cheezious.png';
 import hullahmadLogo from '../assets/hullahmad.png';
-import illustration from '../assets/illustration.png'; // Ensure correct path for the illustration
+import illustration from '../assets/illustration.png';
 
 // Import Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react';

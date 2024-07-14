@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSolarServices } from '../../redux/slices/solarServiceSlice.js';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import solarServiceImage from '../../assets/solar_service.png';
 
 const SolarService = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const { services, loading, error } = useSelector((state) => state.solarServices);
 
     useEffect(() => {

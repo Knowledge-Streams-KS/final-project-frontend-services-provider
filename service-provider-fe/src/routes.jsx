@@ -6,7 +6,7 @@ import Login from "./components/Auth/Login.jsx";
 import Register from "./components/Auth/Registration.jsx";
 import Profile from "./components/Profile/Profile.jsx";
 import BookingList from './components/Bookings/BookingList';
-import BookingDetails from './components/Bookings/BookingDetails';
+import BookingDetail from './components/Bookings/BookingDetail';
 import ServiceList from "./components/Services/ServiceList.jsx";
 import HomeService from "./components/Services/homeService.jsx";
 import CleaningService from "./components/Services/cleaningServices.jsx";
@@ -31,7 +31,7 @@ const AppRoutes = () => (
     <Route path="/services/solar" element={<SolarService />} />
     <Route path="/services/inspection" element={<HomeInspection />} />
     <Route path="/bookings" element={<BookingList />} />
-    <Route path="/bookings/:id" element={<BookingDetails />} />
+    <Route path="/booking/:id" element={<BookingDetail />} />
     <Route path="/profile" element={<Profile />} />
     <Route path="/testimonials" element={<Testimonials />} />
     <Route path="/contact" element={<Contact />} />

@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchHomeInspections } from '../../redux/slices/homeInspectionSlice.js';
 import { Button } from '@mui/material';
 import homeInspectionImage from '../../assets/home_inspection.png';
+import { useNavigate } from 'react-router-dom';
 
 const HomeInspection = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { services, status, error } = useSelector((state) => state.homeInspection);
 
     useEffect(() => {

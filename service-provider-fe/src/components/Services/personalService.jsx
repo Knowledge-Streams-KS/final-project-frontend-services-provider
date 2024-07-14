@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchPersonalServices } from '../../redux/slices/personalServiceSlice';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import personalServiceImage from '../../assets/personal_care.png';
 
 const PersonalService = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const { services, loading, error } = useSelector((state) => state.personalService);
 
     useEffect(() => {

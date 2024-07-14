@@ -1,11 +1,14 @@
+// BookingList.jsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBookings } from '../../redux/slices/bookingSlice';
 import { Container, Typography, Card, CardContent, Grid } from '@mui/material';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const BookingList = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { bookings, loading, error } = useSelector((state) => state.bookings);
 
     useEffect(() => {
@@ -19,11 +22,14 @@ const BookingList = () => {
     }, [error]);
 
     useEffect(() => {
-        console.log("Bookings data: ", bookings); // Log bookings data
     }, [bookings]);
 
+    const handleCardClick = (id) => {
+        navigate(`/booking/${id}`);
+    };
+
     return (
-        <Container className='bg-gray-100 mt-12 rounded-lg p-4'>
+        <Container className='bg-gray-300 mt-12 rounded-lg p-4'>
             <Typography variant="h4" className="mt-8 mb-4 text-center">
                 Booking List
             </Typography>
@@ -32,9 +38,9 @@ const BookingList = () => {
             {bookings && bookings.length > 0 ? (
                 <Grid container spacing={3}>
                     {bookings.map((booking) => (
-                        <Grid item xs={12} sm={6} md={4} key={booking.id}>
-                            <Card className='shadow-lg'>
-                                <CardContent className='bg-gray-200 rounded-lg p-4'>
+                        <Grid item xs={12} sm={6} md={4} key={booking.id} onClick={() => handleCardClick(booking.id)}>
+                            <Card className='shadow-lg cursor-pointer'>
+                                <CardContent className='bg-gray-100 rounded-lg p-4'>
                                     <Typography variant="h5" component="div">
                                         {booking.Service?.serviceName || 'Service Name Not Available'}
                                     </Typography>
