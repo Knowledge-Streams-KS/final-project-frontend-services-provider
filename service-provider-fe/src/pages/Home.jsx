@@ -14,13 +14,14 @@ import yasirbroastLogo from '../assets/yasirbroast.png';
 import CheeziousLogo from '../assets/Cheezious.png';
 import hullahmadLogo from '../assets/hullahmad.png';
 import illustration from '../assets/illustration.png';
+import Testimonials from '../components/Testimonials/Testimonials';
 
 // Import Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
 
 const Home = () => {
   return (
@@ -32,7 +33,7 @@ const Home = () => {
               <h1 className="text-4xl font-bold mb-4">On Time, Done Right.</h1>
               <p className="text-xl mb-6">Connecting customers and technicians for quick, safe, and affordable bookings.</p>
               <label className="block mx-auto mb-4 text-3xl font-semibold text-left">Select City</label>
-              <select className="block mx-auto mb-6 px-4 py-3 border rounded w-auto md:w-full ">
+              <select className="block mx-auto mb-6 px-4 py-3 border rounded w-auto md:w-full">
                 <option>Lahore</option>
                 <option>Karachi</option>
                 <option>Islamabad</option>
@@ -69,6 +70,9 @@ const Home = () => {
           </div>
         </section>
         <section className="py-12 bg-gray-100">
+          <Testimonials /> {/* Adding the Testimonials component */}
+        </section>
+        <section className="py-12 bg-gray-100">
           <div className="container mx-auto text-center">
             <h2 className="text-4xl font-bold mb-4">Service Providers Are Now at Your Doorstep!</h2>
             <p className="text-xl mb-6 break-words">Finding the right service provider just got easier! With our platform, you can connect with qualified professionals for all your needs, right from the comfort of your home...</p>
@@ -92,6 +96,8 @@ const Home = () => {
               spaceBetween={30}
               slidesPerView={3}
               loop={true}
+              navigation={true}
+              modules={[Navigation]}
               autoplay={{ delay: 3000 }}
               breakpoints={{
                 640: { slidesPerView: 2 },

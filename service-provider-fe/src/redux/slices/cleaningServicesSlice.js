@@ -8,7 +8,7 @@ export const fetchCleaningServices = createAsyncThunk(
   'cleaningServices/fetchCleaningServices',
   async () => {
     try {
-      const response = await API.get('/services/category/463e20db-88e6-42af-a90f-e6adacf5c0a4');
+      const response = await API.get('/services/category/1adfd158-a394-4798-ad58-e0094de1c782');
       return response.data;
     } catch (error) {
       throw Error(error.message);

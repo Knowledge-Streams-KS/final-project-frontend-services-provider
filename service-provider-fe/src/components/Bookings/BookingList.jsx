@@ -1,7 +1,6 @@
-// BookingList.jsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBookings } from '../../redux/slices/bookingSlice';
+import { fetchUserBookings } from '../../redux/slices/bookingSlice';
 import { Container, Typography, Card, CardContent, Grid } from '@mui/material';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -12,17 +11,14 @@ const BookingList = () => {
     const { bookings, loading, error } = useSelector((state) => state.bookings);
 
     useEffect(() => {
-        dispatch(fetchBookings());
+        dispatch(fetchUserBookings());
     }, [dispatch]);
 
     useEffect(() => {
         if (error) {
-            toast.error('Failed to fetch bookings');
+            toast.error(`Failed to fetch bookings: ${error}`);
         }
     }, [error]);
-
-    useEffect(() => {
-    }, [bookings]);
 
     const handleCardClick = (id) => {
         navigate(`/booking/${id}`);
@@ -34,7 +30,7 @@ const BookingList = () => {
                 Booking List
             </Typography>
             {loading && <Typography>Loading...</Typography>}
-            {error && <Typography color="error">{error}</Typography>}
+            {error && typeof error === 'string' && <Typography color="error">{error}</Typography>}
             {bookings && bookings.length > 0 ? (
                 <Grid container spacing={3}>
                     {bookings.map((booking) => (

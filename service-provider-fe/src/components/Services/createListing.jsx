@@ -74,11 +74,7 @@ const CreateListing = () => {
             if (result.payload) {
                 setServiceName(form.serviceName);
                 setShowSuccessModal(true);
-            } else {
-                // Handle error
             }
-        } else {
-            // Handle form validation errors
         }
     };
 
@@ -91,13 +87,12 @@ const CreateListing = () => {
     }
 
     return (
-        <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg bg-gradient-to-r from-blue-50 to-purple-50">
-            <h1 className="text-3xl font-extrabold mb-8 text-center text-gray-700">Create Service Listing</h1>
+        <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg">
+            <h1 className="text-3xl font-serif mb-8 text-center text-gray-700">Create Service Listing</h1>
             <form onSubmit={handleSubmit}>
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="serviceName">Service Name</label>
-                    <div className="flex items-center border-b-2 border-gray-300 py-2 focus-within:border-blue-500">
-                        <FontAwesomeIcon icon={faTag} className="text-gray-500 mr-3" />
+                    <label className="block text-gray-700 text-sm font-serif font-bold mb-2" htmlFor="serviceName">Service Name</label>
+                    <div className="flex items-center border-b-2 border-gray-300 font-serif py-2 focus-within:border-blue-500">
                         <input
                             type="text"
                             name="serviceName"
@@ -110,7 +105,7 @@ const CreateListing = () => {
                     </div>
                 </div>
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">Description</label>
+                    <label className="block text-gray-700 text-sm font-serif font-bold mb-2" htmlFor="description">Description</label>
                     <div className="flex items-center border-b-2 border-gray-300 py-2 focus-within:border-blue-500">
                         <FontAwesomeIcon icon={faFileAlt} className="text-gray-500 mr-3" />
                         <textarea
@@ -190,7 +185,7 @@ const CreateListing = () => {
                 </div>
                 <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:from-purple-500 hover:to-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                 >
                     Create Listing
                 </button>
@@ -201,10 +196,12 @@ const CreateListing = () => {
 };
 
 const SuccessModal = ({ serviceName, onClose }) => {
+    const navigate = useNavigate();
+
     const handleClose = () => {
         onClose();
-        // Redirect to a different page if needed
-        navigate('/services'); // Example redirect
+
+        navigate('/services');
     };
 
     return (

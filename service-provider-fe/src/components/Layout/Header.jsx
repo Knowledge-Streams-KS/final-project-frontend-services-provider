@@ -4,21 +4,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import AuthContext from '../../context/AuthContext';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import logo from '../../assets/logo.png';
-import { fetchUserProfile } from '../../redux/slices/authSlice.js';
-import { fetchHomeServices } from '../../redux/slices/homeServiceSlice.js';
-import { fetchCleaningServices } from '../../redux/slices/cleaningServicesSlice.js';
-import { fetchPersonalServices } from '../../redux/slices/personalServiceSlice.js';
-import { fetchSolarServices } from '../../redux/slices/solarServiceSlice.js';
-import { fetchHomeInspections } from '../../redux/slices/homeInspectionSlice.js';
-import {
-    getHomeServices,
-    getCleaningServices,
-    getPersonalServices,
-    getSolarServices,
-    getHomeInspections,
-} from '../../redux/selectors/serviceSelectors';
 
 const Header = () => {
     const { user, logout } = useContext(AuthContext);
@@ -27,20 +14,6 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const location = useLocation();
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchHomeServices());
-        dispatch(fetchCleaningServices());
-        dispatch(fetchPersonalServices());
-        dispatch(fetchSolarServices());
-        dispatch(fetchHomeInspections());
-    }, [dispatch]);
-
-    const homeServices = useSelector(getHomeServices);
-    const cleaningServices = useSelector(getCleaningServices);
-    const personalServices = useSelector(getPersonalServices);
-    const solarServices = useSelector(getSolarServices);
-    const homeInspections = useSelector(getHomeInspections);
 
     const handleLogout = () => {
         logout();
@@ -53,15 +26,6 @@ const Header = () => {
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
-    };
-
-    const toggleDropdown = () => {
-        setDropdownOpen(!dropdownOpen);
-    };
-
-    const handleServiceClick = (path) => {
-        navigate(path);
-        setDropdownOpen(false);
     };
 
     const handleHeaderClick = (serviceType) => {
@@ -119,89 +83,35 @@ const Header = () => {
                                 {dropdownOpen && (
                                     <ul className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                                         <li>
-                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-400 w-full text-left" component={Link} to='/services' onClick={() => handleHeaderClick('ServiceList')}>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-300 w-full text-left" component={Link} to='/services' onClick={() => handleHeaderClick('ServiceList')}>
                                                 All Services
                                             </Button>
                                         </li>
                                         <li>
-                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-400 w-full text-left" component={Link} to='/services/home' onClick={() => handleHeaderClick('home')}>
-                                                Home Services
-                                            </Button>
-                                        </li>
-                                        {homeServices.map((service) => (
-                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                                <Button
-                                                    color="inherit"
-                                                    className="text-black hover:bg-gray-100 block w-full text-left"
-                                                    onClick={() => handleServiceClick(`/services/home/${service.id}`)}
-                                                >
-                                                    {service.name}
-                                                </Button>
-                                            </li>
-                                        ))}
-                                        <li>
-                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-400 w-full text-left" component={Link} to='/services/cleaning' onClick={() => handleHeaderClick('cleaning')}>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-300 w-full text-left" component={Link} to='/services/cleaning' onClick={() => handleHeaderClick('cleaning')}>
                                                 Cleaning Services
                                             </Button>
                                         </li>
-                                        {cleaningServices.map((service) => (
-                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                                <Button
-                                                    color="inherit"
-                                                    className="text-black hover:bg-gray-100 block w-full text-left"
-                                                    onClick={() => handleServiceClick(`/services/cleaning/${service.id}`)}
-                                                >
-                                                    {service.name}
-                                                </Button>
-                                            </li>
-                                        ))}
                                         <li>
-                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-100 w-full text-left" component={Link} to='/services/personal' onClick={() => handleHeaderClick('personal')}>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-300 w-full text-left" component={Link} to='/services/home' onClick={() => handleHeaderClick('home')}>
+                                                Home Services
+                                            </Button>
+                                        </li>
+                                        <li>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-300 w-full text-left" component={Link} to='/services/personal' onClick={() => handleHeaderClick('personal')}>
                                                 Personal Services
                                             </Button>
                                         </li>
-                                        {personalServices.map((service) => (
-                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                                <Button
-                                                    color="inherit"
-                                                    className="text-black hover:bg-gray-100 block w-full text-left"
-                                                    onClick={() => handleServiceClick(`/services/personal/${service.id}`)}
-                                                >
-                                                    {service.name}
-                                                </Button>
-                                            </li>
-                                        ))}
                                         <li>
-                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-100 w-full text-left" component={Link} to='/services/solar' onClick={() => handleHeaderClick('solar')}>
-                                                Solar Services
-                                            </Button>
-                                        </li>
-                                        {solarServices.map((service) => (
-                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                                <Button
-                                                    className="text-black hover:bg-gray-400 block w-full text-left"
-                                                    onClick={() => handleServiceClick(`/services/solar/${service.id}`)}
-                                                >
-                                                    {service.name}
-                                                </Button>
-                                            </li>
-                                        ))}
-                                        <li>
-                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-100 w-full text-left" component={Link} to='/services/inspection' onClick={() => handleHeaderClick('inspection')}>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-300 w-full text-left" component={Link} to='/services/inspection' onClick={() => handleHeaderClick('inspection')}>
                                                 Home Inspections
                                             </Button>
                                         </li>
-                                        {homeInspections.map((service) => (
-                                            <li key={service.id} className="mb-2 last:mb-0 px-4 py-2">
-                                                <Button
-                                                    color="inherit"
-                                                    className="text-black hover:bg-gray-100 block w-full text-left"
-                                                    onClick={() => handleServiceClick(`/services/inspection/${service.id}`)}
-                                                >
-                                                    {service.name}
-                                                </Button>
-                                            </li>
-                                        ))}
+                                        <li>
+                                            <Button className="font-bold px-4 py-2 text-black hover:bg-gray-300 w-full text-left" component={Link} to='/services/solar' onClick={() => handleHeaderClick('solar')}>
+                                                Solar Services
+                                            </Button>
+                                        </li>
                                     </ul>
                                 )}
                             </div>

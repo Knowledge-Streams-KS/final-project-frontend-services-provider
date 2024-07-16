@@ -2,11 +2,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/apiConfig';
 
-export const fetchBookings = createAsyncThunk(
-  'bookings/fetchBookings',
+export const fetchUserBookings = createAsyncThunk(
+  'bookings/fetchUserBookings',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await API.get('/bookings');
+      const response = await API.get('/bookings/user-bookings');
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data || error.message);
@@ -44,17 +44,17 @@ const bookingSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchBookings.pending, (state) => {
+      .addCase(fetchUserBookings.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchBookings.fulfilled, (state, { payload }) => {
+      .addCase(fetchUserBookings.fulfilled, (state, { payload }) => {
         state.loading = false;
         state.bookings = payload;
       })
-      .addCase(fetchBookings.rejected, (state, { payload }) => {
+      .addCase(fetchUserBookings.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = payload;
+        state.error = typeof payload === 'string' ? payload : JSON.stringify(payload);;
       })
       .addCase(createBooking.pending, (state) => {
         state.loading = true;

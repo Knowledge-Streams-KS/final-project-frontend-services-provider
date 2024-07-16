@@ -2,7 +2,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/apiConfig';
 
-export const registerUser = createAsyncThunk('auth/registerUser', async (userData, thunkAPI) => {
+export const registerUser = createAsyncThunk('users/registerUser', async (userData, thunkAPI) => {
   try {
     const response = await API.post('/users/register', userData);
     localStorage.setItem('authToken', response.data.token);
