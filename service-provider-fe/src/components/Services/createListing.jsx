@@ -18,7 +18,8 @@ const CreateListing = () => {
         price: '',
         categoryId: '',
         locationId: '',
-        providerId: ''
+        providerId: '',
+        image: null,  // Add image field
     });
     const [serviceName, setServiceName] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -61,16 +62,28 @@ const CreateListing = () => {
     }, [dispatch]);
 
     const handleChange = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value
-        });
+        const { name, value, files } = e.target;
+        if (name === 'image') {
+            setForm({
+                ...form,
+                image: files[0]
+            });
+        } else {
+            setForm({
+                ...form,
+                [name]: value
+            });
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (form.serviceName && form.categoryId && form.locationId && form.providerId) {
-            const result = await dispatch(createServiceListing(form));
+            const formData = new FormData();
+            for (const key in form) {
+                formData.append(key, form[key]);
+            }
+            const result = await dispatch(createServiceListing(formData));
             if (result.payload) {
                 setServiceName(form.serviceName);
                 setShowSuccessModal(true);
@@ -182,6 +195,15 @@ const CreateListing = () => {
                             ))}
                         </select>
                     </div>
+                </div>
+                <div className="mb-6">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">Upload Image</label>
+                    <input
+                        type="file"
+                        name="image"
+                        onChange={handleChange}
+                        className="appearance-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+                    />
                 </div>
                 <button
                     type="submit"

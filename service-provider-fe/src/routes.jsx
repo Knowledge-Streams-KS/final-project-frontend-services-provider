@@ -11,6 +11,7 @@ import BookingDetail from '../src/components/Bookings/BookingDetail';
 import ServiceList from "../src/components/Services/ServiceList";
 import HomeService from "../src/components/Services/homeService";
 import CleaningService from "../src/components/Services/cleaningServices";
+import ServiceDetail from "./components/Services/ServiceDetail.jsx";
 import PersonalService from "../src/components/Services/personalService";
 import SolarService from "../src/components/Services/solarService";
 import HomeInspection from "../src/components/Services/homeInspection";
@@ -30,6 +31,7 @@ const AppRoutes = () => (
     <Route path="/services" element={<ServiceList />} />
     <Route path="/services/home" element={<HomeService />} />
     <Route path="/services/cleaning" element={<CleaningService />} />
+    <Route path="/services/:id" element={<ServiceDetail />} />
     <Route path="/services/personal" element={<PersonalService />} />
     <Route path="/services/solar" element={<SolarService />} />
     <Route path="/services/inspection" element={<HomeInspection />} />

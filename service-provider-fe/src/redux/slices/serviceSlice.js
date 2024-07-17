@@ -1,4 +1,3 @@
-// src/redux/slices/serviceSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import API from '../../utils/apiConfig';
 
@@ -38,7 +37,7 @@ export const fetchServiceById = createAsyncThunk(
       const response = await API.get(`/services/${id}`);
       return response.data;
     } catch (err) {
-      console.error('Error fetching service by id:', err.response.data); // Log error details
+      console.error('Error fetching service by id:', err.response.data);
       return rejectWithValue(err.response.data);
     }
   }

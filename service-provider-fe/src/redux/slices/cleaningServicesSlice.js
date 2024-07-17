@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/apiConfig';
 
-// Access the environment variable directly
-// const CLEANING_CATEGORY_ID = process.env.REACT_APP_CLEANING_CATEGORY_ID;
-
 export const fetchCleaningServices = createAsyncThunk(
   'cleaningServices/fetchCleaningServices',
   async () => {

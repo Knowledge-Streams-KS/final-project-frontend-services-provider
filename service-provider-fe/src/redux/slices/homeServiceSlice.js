@@ -5,7 +5,7 @@ export const fetchHomeServices = createAsyncThunk(
   'homeServices/fetchHomeServices', 
   async () => {
      try {
-  const response = await API.get('/services/category/f8cfcfce-7fb1-4a0a-9c25-d8659400f96d');
+  const response = await API.get('/services/category/dee74dfd-a757-43ad-b5b7-8c3b14222cb9');
   return response.data;
 } catch (error) {
       throw Error(error.message);
