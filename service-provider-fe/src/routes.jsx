@@ -1,22 +1,25 @@
+// src/routes/index.js
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home.jsx";
-import About from "./components/About.jsx";
-import Login from "./components/Auth/Login.jsx";
-import Register from "./components/Auth/Registration.jsx";
-import Profile from "./components/Profile/Profile.jsx";
-import BookingList from './components/Bookings/BookingList';
-import BookingDetail from './components/Bookings/BookingDetail';
-import ServiceList from "./components/Services/ServiceList.jsx";
-import HomeService from "./components/Services/homeService.jsx";
-import CleaningService from "./components/Services/cleaningServices.jsx";
-import PersonalService from "./components/Services/personalService.jsx";
-import SolarService from "./components/Services/solarService.jsx";
-import HomeInspection from "./components/Services/homeInspection.jsx";
-import Testimonials from './components/Testimonials/Testimonials.jsx';
-import Contact from './components/Contact/Contact.jsx';
-import CreateListing from './components/Services/createListing.jsx';
-import BookService from "./components/Bookings/BookService.jsx";
+import Home from "../src/pages/Home";
+import About from "../src/components/About";
+import Login from "../src/components/Auth/Login";
+import Register from "../src/components/Auth/Registration";
+import Profile from "../src/components/Profile/Profile";
+import BookingList from '../src/components/Bookings/BookingList';
+import BookingDetail from '../src/components/Bookings/BookingDetail';
+import ServiceList from "../src/components/Services/ServiceList";
+import HomeService from "../src/components/Services/homeService";
+import CleaningService from "../src/components/Services/cleaningServices";
+import PersonalService from "../src/components/Services/personalService";
+import SolarService from "../src/components/Services/solarService";
+import HomeInspection from "../src/components/Services/homeInspection";
+import Testimonials from '../src/components/Testimonials/Testimonials';
+import Contact from '../src/components/Contact/Contact';
+import CreateListing from '../src/components/Services/createListing';
+import BookService from "../src/components/Bookings/BookService";
+import ForgotPassword from '../src/components/Auth/ForgetPassword';
+import ResetPassword from '../src/components/Auth/ResetPassword';
 
 const AppRoutes = () => (
   <Routes>
@@ -38,6 +41,8 @@ const AppRoutes = () => (
     <Route path="/create-service" element={<CreateListing />} />
     <Route path="/services/category/:category" element={<ServiceList />} />
     <Route path="book-service/:serviceId" element={<BookService />} />
+    <Route path="/forgot-password" element={<ForgotPassword />} />
+    <Route path="/reset-password/:token" element={<ResetPassword />} />
   </Routes>
 );
 

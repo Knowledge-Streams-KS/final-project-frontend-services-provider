@@ -62,6 +62,9 @@ const Login = () => {
                     <Typography variant="body2" className="text-center mt-4">
                         Don't have an account? <Link href="/register">Register</Link>
                     </Typography>
+                    <Typography variant="body2" className="text-center mt-4">
+                        <Link href="/forgot-password">Forgot Password?</Link>
+                    </Typography>
                 </form>
             </div>
         </div>

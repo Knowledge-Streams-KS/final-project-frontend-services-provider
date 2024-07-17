@@ -1,7 +1,7 @@
-// src/redux/slices/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import API from '../../utils/apiConfig';
 
+// Register user
 export const registerUser = createAsyncThunk('users/registerUser', async (userData, thunkAPI) => {
   try {
     const response = await API.post('/users/register', userData);
@@ -13,6 +13,7 @@ export const registerUser = createAsyncThunk('users/registerUser', async (userDa
   }
 });
 
+// Login user
 export const loginUser = createAsyncThunk('auth/loginUser', async (userData, thunkAPI) => {
   try {
     const response = await API.post('/users/login', userData);
@@ -24,6 +25,7 @@ export const loginUser = createAsyncThunk('auth/loginUser', async (userData, thu
   }
 });
 
+// Fetch user profile
 export const fetchUserProfile = createAsyncThunk('auth/fetchUserProfile', async (_, thunkAPI) => {
   try {
     const response = await API.get('/users/profile');
@@ -33,6 +35,7 @@ export const fetchUserProfile = createAsyncThunk('auth/fetchUserProfile', async 
   }
 });
 
+// Update user profile
 export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', async (userData, thunkAPI) => {
   try {
     const response = await API.put('/users/profile', userData);
@@ -42,12 +45,44 @@ export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', asyn
   }
 });
 
+// Change password
+export const changePassword = createAsyncThunk('users/changePassword', async (passwordData, thunkAPI) => {
+  try {
+    const response = await API.put('/users/change-password', passwordData);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+// Forgot password
+export const forgotPassword = createAsyncThunk('users/forgotPassword', async (emailData, thunkAPI) => {
+  try {
+    const response = await API.post('/users/forgot-password', emailData);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+// Reset password
+export const resetPassword = createAsyncThunk('users/resetPassword', async ({ token, password }, thunkAPI) => {
+  try {
+    const response = await API.put(`/users/reset-password/${token}`, { password });
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
+
+// Auth slice
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
     user: null,
     loading: false,
     error: null,
+    message: null,
   },
   reducers: {
     logout: (state) => {
@@ -106,6 +141,42 @@ const authSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(updateUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(changePassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(changePassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+      })
+      .addCase(changePassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(forgotPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(resetPassword.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(resetPassword.fulfilled, (state, action) => {
+        state.loading = false;
+        state.message = action.payload.message;
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

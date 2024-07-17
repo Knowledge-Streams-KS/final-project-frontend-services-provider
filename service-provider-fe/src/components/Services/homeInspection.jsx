@@ -16,7 +16,17 @@ const HomeInspection = () => {
 
     const handleBookNowClick = (serviceId) => {
         navigate(`/book-service/${serviceId}`);
+
+
     };
+    const truncateText = (text, maxLength) => {
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return text.substring(0, maxLength) + '...';
+    };
+
+
 
     return (
         <div className="container mx-auto mt-12 px-8 mb-4 rounded-lg">
@@ -32,7 +42,7 @@ const HomeInspection = () => {
                             <div className="flex justify-between items-start mb-4">
                                 <div className="flex-1 ml-4">
                                     <h3 className="text-xl font-semibold text-gray-900">{service.serviceName}</h3>
-                                    <p className="text-gray-700">{service.description}</p>
+                                    <p className="text-gray-700">{truncateText(service.description, 40)}</p>
                                     <p className="text-gray-600 font-bold">Rs {service.price}</p>
                                 </div>
                                 <img src={homeInspectionImage} alt={service.serviceName} className="h-32 w-32 rounded-xl" />

@@ -1,10 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { TextField, Button, Container, Typography, Avatar, IconButton, Card, CardContent, Box } from '@mui/material';
+import { TextField, Button, Container, Typography, Avatar, IconButton, Card, CardContent, Box, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthContext from '../../context/AuthContext';
 import { toast } from 'react-toastify';
-import { Password, PhotoCamera } from '@mui/icons-material';
+import { PhotoCamera } from '@mui/icons-material';
 import { fetchUserProfile } from '../../redux/slices/authSlice';
+import API from '../../utils/apiConfig';
 
 const Profile = () => {
     const { updateUserProfile, loading, error } = useContext(AuthContext);
@@ -17,7 +18,12 @@ const Profile = () => {
         email: '',
         phoneNumber: '',
         address: '',
-        password: "",
+    });
+
+    const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
+    const [passwordFormData, setPasswordFormData] = useState({
+        oldPassword: '',
+        newPassword: '',
     });
 
     useEffect(() => {
@@ -34,26 +40,39 @@ const Profile = () => {
                 email: user.email || '',
                 phoneNumber: user.phoneNumber || '',
                 address: user.address || '',
-                password: user.password || '',
             });
         }
     }, [user]);
 
     useEffect(() => {
         if (error) {
-            toast.error('Update failed')
+            toast.error('Update failed');
         }
-    }, [error])
+    }, [error]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            updateUserProfile(formData);
+            await updateUserProfile(formData);
             toast.success('Profile updated successfully');
         } catch (error) {
             toast.error('Update failed');
         }
     };
+    const handlePasswordSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await API.put('/users/change-password', passwordFormData);
+            if (response.data) {
+                setPasswordDialogOpen(false);
+                toast.success('Password updated successfully');
+            }
+        } catch (error) {
+            toast.error('Password update failed');
+        }
+    };
+
+
 
     return (
         <Container maxWidth="md" className='mt-12'>
@@ -109,19 +128,58 @@ const Profile = () => {
                             value={formData.address}
                             onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                         />
-                        <TextField
-                            label="Password"
-                            variant="outlined"
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
                             fullWidth
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                        />
-                        <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
+                            disabled={loading}
+                        >
                             Update Profile
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            fullWidth
+                            onClick={() => setPasswordDialogOpen(true)}
+                        >
+                            Change Password
                         </Button>
                     </form>
                 </CardContent>
             </Card>
+
+            <Dialog open={passwordDialogOpen} onClose={() => setPasswordDialogOpen(false)}>
+                <DialogTitle>Change Password</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        label="Old Password"
+                        type="password"
+                        fullWidth
+                        value={passwordFormData.oldPassword}
+                        onChange={(e) => setPasswordFormData({ ...passwordFormData, oldPassword: e.target.value })}
+                        variant="outlined"
+                        margin="normal"
+                    />
+                    <TextField
+                        label="New Password"
+                        type="password"
+                        fullWidth
+                        value={passwordFormData.newPassword}
+                        onChange={(e) => setPasswordFormData({ ...passwordFormData, newPassword: e.target.value })}
+                        variant="outlined"
+                        margin="normal"
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setPasswordDialogOpen(false)} color="primary">
+                        Cancel
+                    </Button>
+                    <Button onClick={handlePasswordSubmit} color="primary">
+                        Update Password
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 };
