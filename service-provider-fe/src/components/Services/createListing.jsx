@@ -5,8 +5,6 @@ import { fetchUserProfile } from "../../redux/slices/authSlice.js";
 import { useNavigate, useLocation } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import API from '../../utils/apiConfig.js';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTag, faFileAlt, faRupeeSign, faMapMarkerAlt, faUserTie } from '@fortawesome/free-solid-svg-icons';
 
 const CreateListing = () => {
     const [categories, setCategories] = useState([]);
@@ -19,7 +17,7 @@ const CreateListing = () => {
         categoryId: '',
         locationId: '',
         providerId: '',
-        image: null,  // Add image field
+        image: null,
     });
     const [serviceName, setServiceName] = useState('');
     const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -92,20 +90,20 @@ const CreateListing = () => {
     };
 
     if (!user) {
-        return <div>You need to be logged in to create a listing.</div>;
+        return <div className="text-center text-gray-700 mt-10">You need to be logged in to create a listing.</div>;
     }
 
     if (user.role !== 'provider') {
-        return <div>You do not have permission to create a listing.</div>;
+        return <div className="text-center text-gray-700 mt-10">You do not have permission to create a listing.</div>;
     }
 
     return (
-        <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded-lg shadow-lg">
-            <h1 className="text-3xl font-serif mb-8 text-center text-gray-700">Create Service Listing</h1>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-serif font-bold mb-2" htmlFor="serviceName">Service Name</label>
-                    <div className="flex items-center border-b-2 border-gray-300 font-serif py-2 focus-within:border-blue-500">
+        <div className="max-w-lg mx-auto mt-10 bg-gray-200 p-8 rounded-lg shadow-lg mb-4">
+            <h1 className="text-3xl font-semibold mb-8 text-center text-gray-800">Create Service Listing</h1>
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="flex flex-col">
+                    <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="serviceName">Service Name</label>
+                    <div className="flex items-center border-b-2 border-gray-300 py-2 focus-within:border-blue-500">
                         <input
                             type="text"
                             name="serviceName"
@@ -117,10 +115,9 @@ const CreateListing = () => {
                         />
                     </div>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-serif font-bold mb-2" htmlFor="description">Description</label>
+                <div className="flex flex-col">
+                    <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="description">Description</label>
                     <div className="flex items-center border-b-2 border-gray-300 py-2 focus-within:border-blue-500">
-                        <FontAwesomeIcon icon={faFileAlt} className="text-gray-500 mr-3" />
                         <textarea
                             name="description"
                             value={form.description}
@@ -131,10 +128,9 @@ const CreateListing = () => {
                         ></textarea>
                     </div>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">Price</label>
+                <div className="flex flex-col">
+                    <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="price">Price</label>
                     <div className="flex items-center border-b-2 border-gray-300 py-2 focus-within:border-blue-500">
-                        <FontAwesomeIcon icon={faRupeeSign} className="text-gray-500 mr-3" />
                         <input
                             type="number"
                             name="price"
@@ -146,8 +142,8 @@ const CreateListing = () => {
                         />
                     </div>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="categoryId">Service Type</label>
+                <div className="flex flex-col">
+                    <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="categoryId">Service Type</label>
                     <div className="flex items-center border-b-2 border-gray-300 py-2 focus-within:border-blue-500">
                         <select
                             name="categoryId"
@@ -162,10 +158,9 @@ const CreateListing = () => {
                         </select>
                     </div>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="locationId">Location</label>
+                <div className="flex flex-col">
+                    <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="locationId">Location</label>
                     <div className="flex items-center border-b-2 border-gray-300 py-2 focus-within:border-blue-500">
-                        <FontAwesomeIcon icon={faMapMarkerAlt} className="text-gray-500 mr-3" />
                         <select
                             name="locationId"
                             value={form.locationId}
@@ -179,10 +174,9 @@ const CreateListing = () => {
                         </select>
                     </div>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="providerId">Provider</label>
+                <div className="flex flex-col">
+                    <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="providerId">Provider</label>
                     <div className="flex items-center border-b-2 border-gray-300 py-2 focus-within:border-blue-500">
-                        <FontAwesomeIcon icon={faUserTie} className="text-gray-500 mr-3" />
                         <select
                             name="providerId"
                             value={form.providerId}
@@ -196,8 +190,8 @@ const CreateListing = () => {
                         </select>
                     </div>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">Upload Image</label>
+                <div className="flex flex-col">
+                    <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="image">Upload Image</label>
                     <input
                         type="file"
                         name="image"

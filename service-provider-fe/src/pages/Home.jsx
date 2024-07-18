@@ -25,7 +25,7 @@ import 'swiper/css/navigation';
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-200">
       <main className="flex-grow">
         <section className="text-center py-12">
           <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4 lg:px-44">
@@ -33,32 +33,32 @@ const Home = () => {
               <h1 className="text-4xl font-bold mb-4">On Time, Done Right.</h1>
               <p className="text-xl mb-6">Connecting customers and technicians for quick, safe, and affordable bookings.</p>
               <label className="block mx-auto mb-4 text-3xl font-semibold text-left">Select City</label>
-              <select className="block mx-auto mb-6 px-4 py-3 border rounded w-auto md:w-full">
+              <select className="block mx-auto mb-6 px-4 py-3 border rounded-xl w-auto md:w-full ">
                 <option>Lahore</option>
                 <option>Karachi</option>
                 <option>Islamabad</option>
               </select>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-2xl">
-                <Link to="/services/home" className="p-4 bg-white rounded shadow flex items-center hover:bg-gray-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 shadow-2xl rounded-xl">
+                <Link to="/services/home" className="p-4 bg-gray-300 rounded-xl shadow flex items-center hover:bg-gray-200">
                   <img src={homeServices} alt="Home Services" className="h-16 w-16 rounded-xl mr-4" />
                   <h3 className="font-bold">Home Services</h3>
                 </Link>
-                <Link to="/services/cleaning" className="p-4 bg-white rounded shadow flex items-center hover:bg-gray-200">
+                <Link to="/services/cleaning" className="p-4 bg-gray-300 rounded-xl shadow flex items-center hover:bg-gray-200">
                   <img src={cleaningServices} alt="Cleaning Services" className="h-16 w-16 rounded-xl mr-4" />
                   <h3 className="font-bold">Cleaning Services</h3>
                 </Link>
-                <Link to="/services/personal" className="p-4 bg-white rounded shadow flex items-center hover:bg-gray-200">
+                <Link to="/services/personal" className="p-4 bg-gray-300 rounded-xl shadow flex items-center hover:bg-gray-200">
                   <img src={personalCare} alt="Personal Care" className="h-16 w-16 rounded-xl mr-4" />
                   <div>
                     <h3 className="font-bold">Personal Care</h3>
                     <p className="text-gray-600">Females Only</p>
                   </div>
                 </Link>
-                <Link to="/services/solar" className="p-4 bg-white rounded shadow flex items-center hover:bg-gray-200">
+                <Link to="/services/solar" className="p-4 bg-gray-300 rounded-xl shadow flex items-center hover:bg-gray-200">
                   <img src={solarService} alt="Solar Services" className="h-16 w-16 rounded-xl mr-4" />
                   <h3 className="font-bold">Solar Services</h3>
                 </Link>
-                <Link to="/services/inspection" className="p-4 bg-white rounded shadow flex items-center hover:bg-gray-200">
+                <Link to="/services/inspection" className="p-4 bg-gray-300 rounded-xl shadow flex items-center hover:bg-gray-200">
                   <img src={homeInspection} alt="Home Inspection" className="h-16 w-16 rounded-xl mr-4" />
                   <h3 className="font-bold">Home Inspection</h3>
                 </Link>

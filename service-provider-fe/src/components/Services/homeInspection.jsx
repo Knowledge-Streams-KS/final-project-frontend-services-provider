@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchHomeInspections } from '../../redux/slices/homeInspectionSlice';
+import { fetchServicesByCategory } from "../../redux/slices/serviceSlice";
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const HomeInspection = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { services, loading, error } = useSelector((state) => state.homeInspection);
+    const { services, loading, error } = useSelector((state) => state.services);
 
     useEffect(() => {
-        dispatch(fetchHomeInspections());
+        dispatch(fetchServicesByCategory('Home Inspection'));
     }, [dispatch]);
 
     const handleBookNowClick = (serviceId) => {
@@ -52,9 +52,10 @@ const HomeInspection = () => {
                                     <p className="text-gray-600 font-bold">Rs {service.price}</p>
                                 </div>
                                 <img
-                                    src={service.imageUrl ? `http://localhost:3004${service.imageUrl}` : 'default_image_path'}
+                                    src={`http://localhost:3004${service.imageUrl}`}
                                     alt={service.serviceName}
                                     className="h-32 w-32 rounded-xl"
+                                    onError={(e) => { e.target.onerror = null; e.target.src = 'default_image_path'; }}
                                 />
                             </div>
                             <div className="flex justify-between items-center mt-4">

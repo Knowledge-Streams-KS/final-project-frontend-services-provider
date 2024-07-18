@@ -59,7 +59,12 @@ const ServiceList = () => {
                   <p className="text-gray-700">{truncateText(service.description, 40)}</p>
                   <p className="text-gray-600 font-bold">Rs {service.price}</p>
                 </div>
-                <img src={service.imageUrl ? `http://localhost:3004${service.imageUrl}` : 'default_image_path'} alt={service.serviceName} className="h-32 w-32 rounded-xl" />
+                <img
+                  src={`http://localhost:3004${service.imageUrl}`}
+                  alt={service.serviceName}
+                  className="h-32 w-32 rounded-xl"
+                  onError={(e) => { e.target.onerror = null; e.target.src = 'default_image_path'; }}
+                />
               </div>
               <div className="flex justify-between items-center mt-4">
                 <Button
